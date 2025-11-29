@@ -1,70 +1,82 @@
 import React from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export function StaffView({ onOpenWizard, onOpenGlobalSettings }) {
-    return (
-        <div className="view-section flex flex-col h-full w-full">
-            <header className="bg-white border-b border-gray-100 px-8 py-5 flex justify-between items-center">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Team & Routing</h1>
-                    <p className="text-slate-500 text-sm mt-1">Manage team members and configure call transfer logic.</p>
-                </div>
-                <div className="flex gap-3">
-                    <button
-                        onClick={onOpenGlobalSettings}
-                        className="bg-white border border-gray-200 hover:bg-gray-50 text-slate-600 px-4 py-2.5 rounded-lg shadow-sm font-medium flex items-center gap-2 transition-all"
-                    >
-                        <i className="fa-solid fa-sliders"></i> Global Settings
-                    </button>
-                    <button
-                        onClick={() => onOpenWizard('staff')}
-                        className="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg shadow-sm font-medium flex items-center gap-2 transition-all active:scale-95"
-                    >
-                        <i className="fa-solid fa-plus"></i> Add Team Member
-                    </button>
-                </div>
-            </header>
-            <div className="flex-1 overflow-y-auto p-8 bg-gray-50/50">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {/* Staff Card 1 */}
-                    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">JT</div>
-                            <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-1 rounded">Owner</span>
-                        </div>
-                        <h3 className="font-bold text-lg text-slate-900 mb-1">Jamie Tester</h3>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">Handles billing disputes, large quotes, and complex customer complaints.</p>
-                        <div className="flex items-center justify-between text-sm text-slate-400 pt-4 border-t border-gray-100">
-                            <span className="flex items-center gap-1.5 text-green-600 font-medium"><i className="fa-solid fa-circle text-[8px]"></i> Available</span>
-                            <span className="flex items-center gap-1.5"><i className="fa-solid fa-phone"></i> x444</span>
-                        </div>
-                    </div>
-
-                    {/* Staff Card 2 */}
-                    <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">SB</div>
-                            <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-1 rounded">Recept.</span>
-                        </div>
-                        <h3 className="font-bold text-lg text-slate-900 mb-1">Sarah Brown</h3>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">General inquiries, booking appointments, basic triage.</p>
-                        <div className="flex items-center justify-between text-sm text-slate-400 pt-4 border-t border-gray-100">
-                            <span className="flex items-center gap-1.5 text-amber-600 font-medium"><i className="fa-regular fa-clock"></i> Back 2pm</span>
-                            <span className="flex items-center gap-1.5"><i className="fa-solid fa-phone"></i> x101</span>
-                        </div>
-                    </div>
-
-                    {/* Add New Placeholder */}
-                    <button
-                        onClick={() => onOpenWizard('staff')}
-                        className="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center text-gray-400 hover:border-brand-500 hover:text-brand-500 hover:bg-brand-50/50 transition-all bg-transparent h-full min-h-[240px]"
-                    >
-                        <div className="w-12 h-12 rounded-full bg-white shadow-sm border border-gray-200 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                            <i className="fa-solid fa-plus text-lg text-brand-500"></i>
-                        </div>
-                        <span className="font-medium">Add Team Member</span>
-                    </button>
-                </div>
-            </div>
+  return (
+    <div className="view-section flex flex-col h-full w-full">
+      <header className="bg-white border-b border-gray-100 px-8 py-5 flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Team & Routing</h1>
+          <p className="text-slate-500 text-sm mt-1">Manage team members and configure call transfer logic.</p>
         </div>
-    );
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={onOpenGlobalSettings}
+            className="bg-white border-gray-200 hover:bg-gray-50 text-slate-600 shadow-sm font-medium gap-2 transition-all"
+          >
+            <i className="fa-solid fa-sliders"></i> Global Settings
+          </Button>
+          <Button
+            onClick={() => onOpenWizard('staff')}
+            className="bg-brand-600 hover:bg-brand-700 text-white shadow-sm font-medium gap-2 transition-all active:scale-95"
+          >
+            <i className="fa-solid fa-plus"></i> Add Team Member
+          </Button>
+        </div>
+      </header>
+      <div className="flex-1 overflow-y-auto p-8 bg-gray-50/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Staff Card 1 */}
+          <Card className="hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1 border-gray-200 shadow-sm">
+            <CardHeader className="p-6 pb-2">
+              <div className="flex justify-between items-start mb-2">
+                <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">JT</div>
+                <Badge variant="secondary" className="bg-gray-100 text-gray-500 hover:bg-gray-100 uppercase tracking-wider text-[10px] font-bold px-2 py-1">Owner</Badge>
+              </div>
+              <CardTitle className="text-lg font-bold text-slate-900">Jamie Tester</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 pt-0 pb-4">
+              <p className="text-sm text-slate-500 line-clamp-2">Handles billing disputes, large quotes, and complex customer complaints.</p>
+            </CardContent>
+            <CardFooter className="p-6 pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-slate-400">
+              <span className="flex items-center gap-1.5 text-green-600 font-medium"><i className="fa-solid fa-circle text-[8px]"></i> Available</span>
+              <span className="flex items-center gap-1.5"><i className="fa-solid fa-phone"></i> x444</span>
+            </CardFooter>
+          </Card>
+
+          {/* Staff Card 2 */}
+          <Card className="hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1 border-gray-200 shadow-sm">
+            <CardHeader className="p-6 pb-2">
+              <div className="flex justify-between items-start mb-2">
+                <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">SB</div>
+                <Badge variant="secondary" className="bg-gray-100 text-gray-500 hover:bg-gray-100 uppercase tracking-wider text-[10px] font-bold px-2 py-1">Recept.</Badge>
+              </div>
+              <CardTitle className="text-lg font-bold text-slate-900">Sarah Brown</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 pt-0 pb-4">
+              <p className="text-sm text-slate-500 line-clamp-2">General inquiries, booking appointments, basic triage.</p>
+            </CardContent>
+            <CardFooter className="p-6 pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-slate-400">
+              <span className="flex items-center gap-1.5 text-amber-600 font-medium"><i className="fa-regular fa-clock"></i> Back 2pm</span>
+              <span className="flex items-center gap-1.5"><i className="fa-solid fa-phone"></i> x101</span>
+            </CardFooter>
+          </Card>
+
+          {/* Add New Placeholder */}
+          <button
+            onClick={() => onOpenWizard('staff')}
+            className="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center text-gray-400 hover:border-brand-500 hover:text-brand-500 hover:bg-brand-50/50 transition-all bg-transparent h-full min-h-[240px]"
+          >
+            <div className="w-12 h-12 rounded-full bg-white shadow-sm border border-gray-200 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <i className="fa-solid fa-plus text-lg text-brand-500"></i>
+            </div>
+            <span className="font-medium">Add Team Member</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

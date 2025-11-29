@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function LiveSimulator({ mode, step, data }) {
     const [messages, setMessages] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
-    const chatContainerRef = useRef(null);
+    const scrollRef = useRef(null);
 
     // State trackers to prevent duplicate messages
     const stateRef = useRef({
@@ -31,8 +32,12 @@ export function LiveSimulator({ mode, step, data }) {
 
     // Scroll to bottom
     useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        if (scrollRef.current) {
+            // Access the viewport element of ScrollArea to scroll
+            const viewport = scrollRef.current.querySelector('[data-radix-scroll-area-viewport]');
+            if (viewport) {
+                viewport.scrollTop = viewport.scrollHeight;
+            }
         }
     }, [messages]);
 
@@ -61,12 +66,6 @@ export function LiveSimulator({ mode, step, data }) {
 
         // Outcome (Step 3)
         if (step === 3) {
-            // Remove previous outcome if exists (we'll just filter it out in a real app, but here we append)
-            // Actually, let's just append the new one if it's different or just always show the latest state at the bottom?
-            // The original code removed the old bubble.
-            // I'll just append a new one if the outcome changes significantly, or just rely on the user not changing it too much.
-            // Better: Filter out previous 'outcome' type messages and add new one.
-
             let icon = '';
             let text = '';
             let colorClass = 'text-brand-600 bg-brand-50 border-brand-100';
@@ -81,13 +80,12 @@ export function LiveSimulator({ mode, step, data }) {
                 else { icon = 'fa-circle-question'; text = 'Select a delivery method...'; }
             }
 
-            // We only want one outcome message at a time.
             setMessages(prev => {
                 const filtered = prev.filter(m => m.type !== 'outcome');
                 return [...filtered, { type: 'outcome', content: `Action: ${text}`, icon, colorClass }];
             });
         }
-    }, [mode, step, data]); // specific dependencies
+    }, [mode, step, data]);
 
     // STAFF PREVIEW LOGIC
     useEffect(() => {
@@ -188,44 +186,48 @@ export function LiveSimulator({ mode, step, data }) {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar" ref={chatContainerRef}>
-                {messages.map((msg, idx) => (
-                    <React.Fragment key={idx}>
-                        {msg.type === 'user' && (
-                            <div className="user-bubble chat-bubble" dangerouslySetInnerHTML={{ __html: msg.content }}></div>
-                        )}
-                        {msg.type === 'bot' && (
-                            <div className="flex gap-3 animate-fade-in">
-                                <div className="w-8 h-8 rounded-full bg-brand-600 flex-shrink-0 flex items-center justify-center text-white text-xs">
-                                    <i className="fa-solid fa-headset"></i>
-                                </div>
-                                <div className="bot-bubble chat-bubble" dangerouslySetInnerHTML={{ __html: msg.content }}></div>
-                            </div>
-                        )}
-                        {msg.type === 'system' && (
-                            <div className="system-bubble">
-                                <i className={`fa-solid ${msg.icon || 'fa-bolt'} ${msg.color || 'text-gray-400'}`}></i> {msg.content}
-                            </div>
-                        )}
-                        {msg.type === 'outcome' && (
-                            <div className={`system-bubble ${msg.colorClass} py-2 px-3 rounded-lg border animate-fade-in mt-4 ${msg.isWhisper ? 'text-left block' : ''}`}>
-                                {msg.isWhisper ? (
-                                    <>
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <i className={`fa-solid ${msg.icon}`}></i>
-                                            <span className="font-bold text-xs uppercase">{msg.title}</span>
-                                        </div>
-                                        {msg.content}
-                                    </>
-                                ) : (
-                                    <>
-                                        <i className={`fa-solid ${msg.icon}`}></i> {msg.content}
-                                    </>
+            <div className="flex-1 overflow-hidden" ref={scrollRef}>
+                <ScrollArea className="h-full p-6">
+                    <div className="space-y-4 pb-4">
+                        {messages.map((msg, idx) => (
+                            <React.Fragment key={idx}>
+                                {msg.type === 'user' && (
+                                    <div className="user-bubble chat-bubble" dangerouslySetInnerHTML={{ __html: msg.content }}></div>
                                 )}
-                            </div>
-                        )}
-                    </React.Fragment>
-                ))}
+                                {msg.type === 'bot' && (
+                                    <div className="flex gap-3 animate-fade-in">
+                                        <div className="w-8 h-8 rounded-full bg-brand-600 flex-shrink-0 flex items-center justify-center text-white text-xs">
+                                            <i className="fa-solid fa-headset"></i>
+                                        </div>
+                                        <div className="bot-bubble chat-bubble" dangerouslySetInnerHTML={{ __html: msg.content }}></div>
+                                    </div>
+                                )}
+                                {msg.type === 'system' && (
+                                    <div className="system-bubble">
+                                        <i className={`fa-solid ${msg.icon || 'fa-bolt'} ${msg.color || 'text-gray-400'}`}></i> {msg.content}
+                                    </div>
+                                )}
+                                {msg.type === 'outcome' && (
+                                    <div className={`system-bubble ${msg.colorClass} py-2 px-3 rounded-lg border animate-fade-in mt-4 ${msg.isWhisper ? 'text-left block' : ''}`}>
+                                        {msg.isWhisper ? (
+                                            <>
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <i className={`fa-solid ${msg.icon}`}></i>
+                                                    <span className="font-bold text-xs uppercase">{msg.title}</span>
+                                                </div>
+                                                {msg.content}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <i className={`fa-solid ${msg.icon}`}></i> {msg.content}
+                                            </>
+                                        )}
+                                    </div>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </ScrollArea>
             </div>
 
             {/* Input Placeholder */}

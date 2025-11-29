@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { LiveSimulator } from '../simulator/LiveSimulator';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
     const [mode, setMode] = useState(initialMode);
@@ -86,12 +93,9 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
         setStep(1);
     };
 
-    if (!isOpen) return null;
-
     // Helper to render steps
     const renderStepIndicator = (num, label) => {
         const isActive = step >= num;
-        const isCurrent = step === num;
         return (
             <div className="flex items-center gap-2">
                 <span className={`w-2.5 h-2.5 rounded-full transition-colors ${isActive ? 'bg-brand-600' : 'bg-gray-300'}`}></span>
@@ -101,31 +105,26 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center transition-opacity animate-fade-in">
-            <div className="bg-white w-[90vw] max-w-5xl h-[85vh] rounded-2xl shadow-2xl flex overflow-hidden transform transition-transform duration-300 relative animate-pop-in">
+        <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+            <DialogContent className="max-w-5xl h-[85vh] p-0 gap-0 overflow-hidden flex">
 
                 {/* LEFT COLUMN: Form */}
-                <div className="w-3/5 flex flex-col border-r border-gray-200">
+                <div className="w-3/5 flex flex-col border-r border-gray-200 h-full">
                     {/* Header */}
-                    <div className="px-8 py-6 border-b border-gray-100 flex justify-between items-center">
-                        <div>
-                            <h2 className="text-xl font-bold text-slate-900">
-                                {mode === 'service' && 'Add New Service'}
-                                {mode === 'staff' && 'Add Team Member'}
-                                {mode === 'protocol' && 'Add New Protocol'}
-                                {mode === 'transfer' && 'Add Transfer Rule'}
-                            </h2>
-                            <div className="flex items-center gap-2 mt-2">
-                                {renderStepIndicator(1, mode === 'service' ? 'Basics' : mode === 'staff' ? 'Profile' : mode === 'protocol' ? 'Trigger' : 'Strategy')}
-                                <div className="w-8 h-px bg-gray-200"></div>
-                                {renderStepIndicator(2, mode === 'service' ? 'Knowledge' : mode === 'staff' ? 'Responsibilities' : mode === 'protocol' ? 'Action' : 'Handoff')}
-                                <div className="w-8 h-px bg-gray-200"></div>
-                                {renderStepIndicator(3, mode === 'service' ? 'Outcome' : mode === 'staff' ? 'Transfer Rules' : mode === 'protocol' ? 'Review' : 'Routing')}
-                            </div>
+                    <div className="px-8 py-6 border-b border-gray-100">
+                        <DialogTitle className="text-xl font-bold text-slate-900 mb-2">
+                            {mode === 'service' && 'Add New Service'}
+                            {mode === 'staff' && 'Add Team Member'}
+                            {mode === 'protocol' && 'Add New Protocol'}
+                            {mode === 'transfer' && 'Add Transfer Rule'}
+                        </DialogTitle>
+                        <div className="flex items-center gap-2 mt-2">
+                            {renderStepIndicator(1, mode === 'service' ? 'Basics' : mode === 'staff' ? 'Profile' : mode === 'protocol' ? 'Trigger' : 'Strategy')}
+                            <div className="w-8 h-px bg-gray-200"></div>
+                            {renderStepIndicator(2, mode === 'service' ? 'Knowledge' : mode === 'staff' ? 'Responsibilities' : mode === 'protocol' ? 'Action' : 'Handoff')}
+                            <div className="w-8 h-px bg-gray-200"></div>
+                            {renderStepIndicator(3, mode === 'service' ? 'Outcome' : mode === 'staff' ? 'Transfer Rules' : mode === 'protocol' ? 'Review' : 'Routing')}
                         </div>
-                        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-                            <i className="fa-solid fa-xmark text-lg"></i>
-                        </button>
                     </div>
 
                     {/* Form Content */}
@@ -135,101 +134,97 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
                         {mode === 'service' && (
                             <>
                                 {step === 1 && (
-                                    <div className="animate-fade-in">
-                                        <div className="mb-6">
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Service Name</label>
-                                            <input
-                                                type="text"
+                                    <div className="animate-fade-in space-y-6">
+                                        <div className="space-y-2">
+                                            <Label>Service Name</Label>
+                                            <Input
                                                 value={formData.serviceName}
                                                 onChange={(e) => updateField('serviceName', e.target.value)}
                                                 placeholder="e.g., Leaking Tap Repair"
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all"
                                             />
-                                            <p className="text-xs text-slate-500 mt-2 flex items-start gap-2"><i className="fa-solid fa-circle-info text-brand-500 mt-0.5"></i> This is what Sophiie listens for. Be specific but common.</p>
+                                            <p className="text-xs text-slate-500 flex items-start gap-2"><i className="fa-solid fa-circle-info text-brand-500 mt-0.5"></i> This is what Sophiie listens for. Be specific but common.</p>
                                         </div>
-                                        {/* Pricing Mode - Simplified for brevity */}
-                                        <div className="mb-6">
-                                            <label className="block text-sm font-semibold text-slate-700 mb-3">Service Pricing Mode</label>
-                                            <div className="flex gap-3 mb-4 overflow-x-auto pb-1">
+
+                                        <div className="space-y-3">
+                                            <Label>Service Pricing Mode</Label>
+                                            <RadioGroup value={formData.priceMode} onValueChange={(val) => updateField('priceMode', val)} className="flex gap-3 mb-4">
                                                 {['fixed', 'hourly', 'range', 'na'].map(m => (
-                                                    <label key={m} className="cursor-pointer">
-                                                        <input
-                                                            type="radio"
-                                                            name="priceMode"
-                                                            value={m}
-                                                            checked={formData.priceMode === m}
-                                                            onChange={(e) => updateField('priceMode', e.target.value)}
-                                                            className="hidden"
-                                                        />
-                                                        <div className={`px-4 py-2 border rounded-full text-sm transition-colors flex items-center gap-2 ${formData.priceMode === m ? 'border-brand-500 bg-brand-50 text-brand-600 font-semibold' : 'border-gray-200 text-slate-600 hover:bg-gray-50'}`}>
+                                                    <div key={m} className="flex items-center space-x-2">
+                                                        <RadioGroupItem value={m} id={m} className="peer sr-only" />
+                                                        <Label
+                                                            htmlFor={m}
+                                                            className={`px-4 py-2 border rounded-full text-sm transition-colors cursor-pointer flex items-center gap-2 peer-data-[state=checked]:border-brand-500 peer-data-[state=checked]:bg-brand-50 peer-data-[state=checked]:text-brand-600 font-medium border-gray-200 text-slate-600 hover:bg-gray-50`}
+                                                        >
                                                             {m === 'fixed' && 'Fixed Price'}
                                                             {m === 'hourly' && 'Hourly Rate'}
                                                             {m === 'range' && 'Price Range'}
                                                             {m === 'na' && 'Not Applicable'}
-                                                        </div>
-                                                    </label>
+                                                        </Label>
+                                                    </div>
                                                 ))}
-                                            </div>
-                                            <input
+                                            </RadioGroup>
+                                            <Input
                                                 type="number"
                                                 value={formData.price}
                                                 onChange={(e) => updateField('price', e.target.value)}
                                                 placeholder="Enter price..."
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none"
                                                 disabled={formData.priceMode === 'na'}
                                             />
                                         </div>
                                     </div>
                                 )}
                                 {step === 2 && (
-                                    <div className="animate-fade-in">
-                                        <div className="mb-6">
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Description</label>
-                                            <textarea
-                                                rows="3"
+                                    <div className="animate-fade-in space-y-6">
+                                        <div className="space-y-2">
+                                            <Label>Description</Label>
+                                            <Textarea
+                                                rows={3}
                                                 value={formData.serviceDesc}
                                                 onChange={(e) => updateField('serviceDesc', e.target.value)}
                                                 placeholder="Describe what this service entails..."
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none resize-none"
-                                            ></textarea>
+                                                className="resize-none"
+                                            />
                                         </div>
                                         {/* Questions - Simplified */}
-                                        <div>
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Pre-Qualifying Questions</label>
+                                        <div className="space-y-2">
+                                            <Label>Pre-Qualifying Questions</Label>
                                             <div className="flex gap-2">
-                                                <input type="text" placeholder="Type a question..." className="flex-1 px-4 py-2 rounded-lg border border-gray-300 text-sm" />
-                                                <button className="bg-gray-100 hover:bg-gray-200 text-slate-700 px-4 py-2 rounded-lg font-medium text-sm">Add</button>
+                                                <Input type="text" placeholder="Type a question..." />
+                                                <Button variant="secondary">Add</Button>
                                             </div>
                                         </div>
                                     </div>
                                 )}
                                 {step === 3 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-4">Outcome</label>
-                                        <div className="grid grid-cols-3 gap-4 mb-6">
+                                    <div className="animate-fade-in space-y-6">
+                                        <Label>Outcome</Label>
+                                        <RadioGroup value={formData.outcome} onValueChange={(val) => updateField('outcome', val)} className="grid grid-cols-3 gap-4 mb-6">
                                             {['transfer', 'book', 'info'].map(o => (
-                                                <label key={o} className="cursor-pointer group">
-                                                    <input
-                                                        type="radio"
-                                                        name="outcome"
-                                                        value={o}
-                                                        checked={formData.outcome === o}
-                                                        onChange={(e) => updateField('outcome', e.target.value)}
-                                                        className="hidden"
-                                                    />
-                                                    <div className={`h-full p-4 rounded-xl border-2 transition-all flex flex-col items-center text-center ${formData.outcome === o ? 'border-brand-500 bg-brand-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                                                <div key={o}>
+                                                    <RadioGroupItem value={o} id={`outcome-${o}`} className="peer sr-only" />
+                                                    <Label
+                                                        htmlFor={`outcome-${o}`}
+                                                        className={`h-full p-4 rounded-xl border-2 transition-all flex flex-col items-center text-center cursor-pointer peer-data-[state=checked]:border-brand-500 peer-data-[state=checked]:bg-brand-50 border-gray-200 hover:border-gray-300`}
+                                                    >
                                                         <span className="font-semibold text-sm text-slate-800 capitalize">{o}</span>
-                                                    </div>
-                                                </label>
+                                                    </Label>
+                                                </div>
                                             ))}
-                                        </div>
+                                        </RadioGroup>
+
                                         {formData.outcome === 'transfer' && (
-                                            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                                <label className="block text-sm font-semibold text-slate-700 mb-2">Select Team</label>
-                                                <select className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-sm">
-                                                    <option>Reception Desk (Default)</option>
-                                                </select>
-                                                <button onClick={switchToStaffFlow} className="mt-2 text-brand-600 text-sm font-medium hover:underline">+ Add New Team Member</button>
+                                            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-2">
+                                                <Label>Select Team</Label>
+                                                <Select>
+                                                    <SelectTrigger className="bg-white">
+                                                        <SelectValue placeholder="Select a team member" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="reception">Reception Desk (Default)</SelectItem>
+                                                        <SelectItem value="jamie">Jamie Tester</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                                <Button variant="link" onClick={switchToStaffFlow} className="p-0 h-auto text-brand-600 text-sm font-medium hover:underline">+ Add New Team Member</Button>
                                             </div>
                                         )}
                                     </div>
@@ -246,55 +241,49 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
                                     </div>
                                 )}
                                 {step === 1 && (
-                                    <div className="animate-fade-in">
-                                        <div className="grid grid-cols-2 gap-6 mb-6">
-                                            <div>
-                                                <label className="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
-                                                <input
-                                                    type="text"
+                                    <div className="animate-fade-in space-y-6">
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <Label>First Name</Label>
+                                                <Input
                                                     value={formData.firstName}
                                                     onChange={(e) => updateField('firstName', e.target.value)}
-                                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none"
                                                 />
                                             </div>
-                                            <div>
-                                                <label className="block text-sm font-semibold text-slate-700 mb-2">Last Name</label>
-                                                <input
-                                                    type="text"
+                                            <div className="space-y-2">
+                                                <Label>Last Name</Label>
+                                                <Input
                                                     value={formData.lastName}
                                                     onChange={(e) => updateField('lastName', e.target.value)}
-                                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none"
                                                 />
                                             </div>
                                         </div>
-                                        <div className="mb-6">
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Role</label>
-                                            <input
-                                                type="text"
+                                        <div className="space-y-2">
+                                            <Label>Role</Label>
+                                            <Input
                                                 value={formData.role}
                                                 onChange={(e) => updateField('role', e.target.value)}
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none"
                                             />
                                         </div>
                                     </div>
                                 )}
                                 {step === 2 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Responsibilities</label>
-                                        <textarea
-                                            rows="4"
+                                    <div className="animate-fade-in space-y-2">
+                                        <Label>Responsibilities</Label>
+                                        <Textarea
+                                            rows={4}
                                             value={formData.responsibilities}
                                             onChange={(e) => updateField('responsibilities', e.target.value)}
-                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none resize-none"
-                                        ></textarea>
+                                            className="resize-none"
+                                        />
                                     </div>
                                 )}
                                 {step === 3 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-4">Transfer Conditions</label>
+                                    <div className="animate-fade-in space-y-4">
+                                        <Label>Transfer Conditions</Label>
                                         <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
                                             <p className="text-xs text-slate-400 mb-3">If a user says these, transfer immediately.</p>
-                                            <button className="text-brand-600 text-sm font-medium hover:underline">+ Add Keyword</button>
+                                            <Button variant="link" className="p-0 h-auto text-brand-600 text-sm font-medium hover:underline">+ Add Keyword</Button>
                                         </div>
                                     </div>
                                 )}
@@ -305,51 +294,38 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
                         {mode === 'protocol' && (
                             <>
                                 {step === 1 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Trigger Condition</label>
-                                        <div className="grid grid-cols-2 gap-4 mb-6">
-                                            <label className="cursor-pointer group">
-                                                <input
-                                                    type="radio"
-                                                    name="protocolTrigger"
-                                                    value="keyword"
-                                                    checked={formData.protocolTriggerType === 'keyword'}
-                                                    onChange={(e) => updateField('protocolTriggerType', e.target.value)}
-                                                    className="hidden"
-                                                />
-                                                <div className={`p-4 border-2 rounded-lg transition-all h-full ${formData.protocolTriggerType === 'keyword' ? 'border-brand-500 bg-brand-50' : 'border-gray-200'}`}>
+                                    <div className="animate-fade-in space-y-4">
+                                        <Label>Trigger Condition</Label>
+                                        <RadioGroup value={formData.protocolTriggerType} onValueChange={(val) => updateField('protocolTriggerType', val)} className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <RadioGroupItem value="keyword" id="trig-keyword" className="peer sr-only" />
+                                                <Label htmlFor="trig-keyword" className="block p-4 border-2 rounded-lg transition-all h-full cursor-pointer peer-data-[state=checked]:border-brand-500 peer-data-[state=checked]:bg-brand-50 border-gray-200">
                                                     <div className="font-semibold text-slate-800 mb-1">Specific Keywords</div>
-                                                </div>
-                                            </label>
-                                            <label className="cursor-pointer group">
-                                                <input
-                                                    type="radio"
-                                                    name="protocolTrigger"
-                                                    value="intent"
-                                                    checked={formData.protocolTriggerType === 'intent'}
-                                                    onChange={(e) => updateField('protocolTriggerType', e.target.value)}
-                                                    className="hidden"
-                                                />
-                                                <div className={`p-4 border-2 rounded-lg transition-all h-full ${formData.protocolTriggerType === 'intent' ? 'border-brand-500 bg-brand-50' : 'border-gray-200'}`}>
+                                                </Label>
+                                            </div>
+                                            <div>
+                                                <RadioGroupItem value="intent" id="trig-intent" className="peer sr-only" />
+                                                <Label htmlFor="trig-intent" className="block p-4 border-2 rounded-lg transition-all h-full cursor-pointer peer-data-[state=checked]:border-brand-500 peer-data-[state=checked]:bg-brand-50 border-gray-200">
                                                     <div className="font-semibold text-slate-800 mb-1">Customer Intent</div>
-                                                </div>
-                                            </label>
-                                        </div>
+                                                </Label>
+                                            </div>
+                                        </RadioGroup>
                                     </div>
                                 )}
                                 {step === 2 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Required Action</label>
-                                        <select
-                                            value={formData.action}
-                                            onChange={(e) => updateField('action', e.target.value)}
-                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none bg-white mb-4"
-                                        >
-                                            <option value="script">Follow a Script / Give Info</option>
-                                            <option value="transfer">Transfer to Team</option>
-                                            <option value="refuse">Politely Refuse</option>
-                                            <option value="collect">Collect Info & Park</option>
-                                        </select>
+                                    <div className="animate-fade-in space-y-2">
+                                        <Label>Required Action</Label>
+                                        <Select value={formData.action} onValueChange={(val) => updateField('action', val)}>
+                                            <SelectTrigger className="bg-white">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="script">Follow a Script / Give Info</SelectItem>
+                                                <SelectItem value="transfer">Transfer to Team</SelectItem>
+                                                <SelectItem value="refuse">Politely Refuse</SelectItem>
+                                                <SelectItem value="collect">Collect Info & Park</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 )}
                                 {step === 3 && (
@@ -367,35 +343,36 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
                         {mode === 'transfer' && (
                             <>
                                 {step === 1 && (
-                                    <div className="animate-fade-in">
-                                        <div className="mb-6">
-                                            <label className="block text-sm font-semibold text-slate-700 mb-2">Transfer Rule Name</label>
-                                            <input
-                                                type="text"
-                                                value={formData.transferName}
-                                                onChange={(e) => updateField('transferName', e.target.value)}
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none"
-                                            />
-                                        </div>
+                                    <div className="animate-fade-in space-y-2">
+                                        <Label>Transfer Rule Name</Label>
+                                        <Input
+                                            value={formData.transferName}
+                                            onChange={(e) => updateField('transferName', e.target.value)}
+                                        />
                                     </div>
                                 )}
                                 {step === 2 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-2">Summary Format</label>
-                                        <textarea
-                                            rows="4"
+                                    <div className="animate-fade-in space-y-2">
+                                        <Label>Summary Format</Label>
+                                        <Textarea
+                                            rows={4}
                                             value={formData.summary}
                                             onChange={(e) => updateField('summary', e.target.value)}
-                                            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm font-mono bg-gray-50"
-                                        ></textarea>
+                                            className="text-sm font-mono bg-gray-50"
+                                        />
                                     </div>
                                 )}
                                 {step === 3 && (
-                                    <div className="animate-fade-in">
-                                        <label className="block text-sm font-semibold text-slate-700 mb-4">Routing Logic</label>
-                                        <select className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-brand-500 outline-none bg-white text-sm">
-                                            <option>Specific Person</option>
-                                        </select>
+                                    <div className="animate-fade-in space-y-2">
+                                        <Label>Routing Logic</Label>
+                                        <Select>
+                                            <SelectTrigger className="bg-white">
+                                                <SelectValue placeholder="Select routing logic" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="specific">Specific Person</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 )}
                             </>
@@ -405,26 +382,27 @@ export function WizardModal({ isOpen, onClose, initialMode = 'service' }) {
 
                     {/* Footer */}
                     <div className="px-8 py-5 border-t border-gray-100 bg-gray-50 rounded-bl-2xl flex justify-between items-center">
-                        <button
+                        <Button
+                            variant="ghost"
                             onClick={handleBack}
                             disabled={step === 1 && !isNestedStaffFlow}
-                            className="px-5 py-2.5 rounded-lg text-slate-600 font-medium hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="text-slate-600 hover:bg-gray-200"
                         >
                             Back
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             onClick={handleNext}
-                            className="px-6 py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 shadow-md transition-all active:scale-95"
+                            className="bg-brand-600 hover:bg-brand-700 text-white shadow-md active:scale-95"
                         >
                             {step === 3 ? (isNestedStaffFlow ? 'Create & Return' : 'Save & Close') : 'Next Step'}
-                        </button>
+                        </Button>
                     </div>
                 </div>
 
                 {/* RIGHT COLUMN: Simulator */}
                 <LiveSimulator mode={mode} step={step} data={formData} />
 
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 }

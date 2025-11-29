@@ -1,204 +1,93 @@
 import React from 'react';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function Sidebar({ currentView, onSwitchView }) {
-    const isActive = (view) => currentView === view;
+    const mainNavItems = [
+        { id: 'services', icon: 'fa-solid fa-list-check', label: 'Services' },
+        { id: 'staff', icon: 'fa-solid fa-users', label: 'Team' },
+        { id: 'protocols', icon: 'fa-solid fa-book-open', label: 'Protocols' },
+        { id: 'transfers', icon: 'fa-solid fa-share-from-square', label: 'Transfers' },
+    ];
 
     return (
-        <>
-            {/* TIER 1: Sidebar */}
-            <aside className="w-[72px] bg-[#020617] flex flex-col items-center py-6 z-30 flex-shrink-0 shadow-xl text-white">
-                <div className="mb-10 text-2xl opacity-90 hover:opacity-100 cursor-pointer">
-                    <i className="fa-solid fa-headset"></i>
+        <div className="flex h-full">
+            {/* TIER 1: Primary Navigation (Dark Blue) */}
+            <aside className="w-[72px] bg-slate-900 flex flex-col items-center py-6 z-20">
+                <div className="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white text-xl font-bold mb-8 shadow-lg shadow-brand-900/50">
+                    S
                 </div>
 
-                <nav className="flex-1 w-full flex flex-col gap-7 px-2 items-center">
-                    <a href="#" className="text-xl text-white opacity-60 hover:opacity-100 transition-opacity nav-icon-btn">
-                        <i className="fa-regular fa-envelope"></i>
-                    </a>
+                <nav className="flex-1 flex flex-col gap-4 w-full px-3">
+                    <button className="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center transition-all hover:bg-brand-600 hover:scale-105 hover:shadow-lg hover:shadow-brand-900/50 group relative">
+                        <i className="fa-solid fa-house"></i>
+                        <span className="absolute left-14 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Dashboard</span>
+                    </button>
+                    <button className="w-12 h-12 rounded-xl text-slate-400 flex items-center justify-center transition-all hover:bg-white/10 hover:text-white group relative">
+                        <i className="fa-solid fa-chart-pie"></i>
+                        <span className="absolute left-14 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Analytics</span>
+                    </button>
+                    <button className="w-12 h-12 rounded-xl text-slate-400 flex items-center justify-center transition-all hover:bg-white/10 hover:text-white group relative">
+                        <i className="fa-solid fa-inbox"></i>
+                        <span className="absolute left-14 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Inbox</span>
+                    </button>
+                </nav>
 
-                    {/* People (Staff View Trigger) */}
-                    <a
-                        href="#"
-                        onClick={(e) => { e.preventDefault(); onSwitchView('staff'); }}
-                        className={`text-xl text-white transition-all nav-icon-btn ${isActive('staff') ? 'active opacity-100' : 'opacity-60 hover:opacity-100'}`}
-                    >
-                        <i className="fa-solid fa-user-group"></i>
-                    </a>
-
-                    {/* Wrench (Services View Trigger) */}
-                    <a
-                        href="#"
-                        onClick={(e) => { e.preventDefault(); onSwitchView('services'); }}
-                        className={`text-xl text-white transition-all nav-icon-btn ${isActive('services') ? 'active opacity-100' : 'opacity-60 hover:opacity-100'}`}
-                    >
-                        <i className="fa-solid fa-screwdriver-wrench"></i>
-                    </a>
-
-                    {/* Protocols (Trigger) */}
-                    <a
-                        href="#"
-                        onClick={(e) => { e.preventDefault(); onSwitchView('protocols'); }}
-                        className={`text-xl text-white transition-all nav-icon-btn ${isActive('protocols') ? 'active opacity-100' : 'opacity-60 hover:opacity-100'}`}
-                    >
-                        <i className="fa-solid fa-list-check"></i>
-                    </a>
-
-                    {/* Transfers (Trigger) */}
-                    <a
-                        href="#"
-                        onClick={(e) => { e.preventDefault(); onSwitchView('transfers'); }}
-                        className={`text-xl text-white transition-all nav-icon-btn ${isActive('transfers') ? 'active opacity-100' : 'opacity-60 hover:opacity-100'}`}
-                    >
-                        <i className="fa-solid fa-arrow-right-arrow-left"></i>
-                    </a>
-
-                    <a href="#" className="text-xl text-white opacity-60 hover:opacity-100 transition-opacity nav-icon-btn">
-                        <i className="fa-regular fa-calendar"></i>
-                    </a>
-
-                    <a href="#" className="text-xl text-white opacity-60 hover:opacity-100 transition-opacity nav-icon-btn">
-                        <i className="fa-solid fa-list-check"></i>
-                    </a>
-
-                    <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-brand-400 mt-2 mb-2">
-                        <i className="fa-solid fa-robot text-lg"></i>
-                    </a>
-
-                    <a href="#" className="text-xl text-white opacity-60 hover:opacity-100 transition-opacity nav-icon-btn">
+                <div className="flex flex-col gap-4 px-3">
+                    <button className="w-12 h-12 rounded-xl text-slate-400 flex items-center justify-center transition-all hover:bg-white/10 hover:text-white group relative">
                         <i className="fa-solid fa-gear"></i>
-                    </a>
-
-                    <a href="#" className="text-xl text-white opacity-60 hover:opacity-100 transition-opacity nav-icon-btn">
-                        <i className="fa-regular fa-circle-question"></i>
-                    </a>
-                </nav>
-
-                <div className="mt-4 w-10 h-10 rounded-xl bg-gradient-to-b from-lime-400 to-emerald-500 cursor-pointer shadow-lg hover:opacity-90 transition-opacity">
+                        <span className="absolute left-14 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">Settings</span>
+                    </button>
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-400 to-purple-500 border-2 border-slate-700 mt-2"></div>
                 </div>
             </aside>
 
-            {/* TIER 2: Inner Sidebar */}
-            <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-full flex-shrink-0 z-20">
-                <div className="p-6 border-b border-gray-100">
-                    <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Module</h2>
-                    <div className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                        Train Sophiie
-                        <span className="bg-brand-100 text-brand-700 text-[10px] px-2 py-0.5 rounded-full">Beta</span>
-                    </div>
+            {/* TIER 2: Secondary Navigation (Light Gray) */}
+            <aside className="w-64 bg-gray-50 border-r border-gray-200 flex flex-col z-10">
+                <div className="h-20 flex items-center px-6 border-b border-gray-100">
+                    <h2 className="font-bold text-slate-800 text-lg">Configuration</h2>
                 </div>
 
-                <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-8">
-                    {/* Group: Knowledge Base */}
-                    <div>
-                        <h3 className="px-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Knowledge Base</h3>
-                        <ul className="space-y-1">
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => { e.preventDefault(); onSwitchView('services'); }}
-                                    className={isActive('services')
-                                        ? "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-50 text-brand-700 font-medium"
-                                        : "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors"}
-                                >
-                                    <i className={`fa-solid fa-wrench w-5 ${isActive('services') ? 'text-brand-500' : 'text-slate-400'}`}></i>
-                                    Services
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => { e.preventDefault(); onSwitchView('protocols'); }}
-                                    className={isActive('protocols')
-                                        ? "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-50 text-brand-700 font-medium"
-                                        : "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors"}
-                                >
-                                    <i className={`fa-solid fa-shield-halved w-5 ${isActive('protocols') ? 'text-brand-500' : 'text-slate-400'}`}></i>
-                                    Protocols
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
-                                    <i className="fa-solid fa-file-shield w-5 text-slate-400"></i>
-                                    Policies
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
-                                    <i className="fa-solid fa-circle-question w-5 text-slate-400"></i>
-                                    FAQs
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div className="flex-1 overflow-hidden">
+                    <ScrollArea className="h-full">
+                        <div className="p-4">
+                            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">Knowledge Base</div>
+                            <nav className="space-y-1">
+                                {mainNavItems.map((item) => (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => onSwitchView(item.id)}
+                                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${currentView === item.id
+                                                ? 'bg-white text-brand-700 shadow-sm ring-1 ring-gray-200'
+                                                : 'text-slate-600 hover:bg-gray-100 hover:text-slate-900'
+                                            }`}
+                                    >
+                                        <i className={`${item.icon} w-5 text-center ${currentView === item.id ? 'text-brand-600' : 'text-slate-400'}`}></i>
+                                        {item.label}
+                                    </button>
+                                ))}
+                            </nav>
 
-                    {/* Group: Team & Routing */}
-                    <div>
-                        <h3 className="px-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Team & Routing</h3>
-                        <ul className="space-y-1">
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => { e.preventDefault(); onSwitchView('staff'); }}
-                                    className={isActive('staff')
-                                        ? "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-50 text-brand-700 font-medium"
-                                        : "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors"}
-                                >
-                                    <i className={`fa-solid fa-users w-5 ${isActive('staff') ? 'text-brand-500' : 'text-slate-400'}`}></i>
-                                    Staff
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
-                                    <i className="fa-solid fa-sitemap w-5 text-slate-400"></i>
-                                    Departments
-                                </a>
-                            </li>
-                            {/* New Transfers Link */}
-                            <li>
-                                <a
-                                    href="#"
-                                    onClick={(e) => { e.preventDefault(); onSwitchView('transfers'); }}
-                                    className={isActive('transfers')
-                                        ? "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-50 text-brand-700 font-medium"
-                                        : "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors"}
-                                >
-                                    <i className={`fa-solid fa-arrow-right-arrow-left w-5 ${isActive('transfers') ? 'text-brand-500' : 'text-slate-400'}`}></i>
-                                    Transfers
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Group: Persona */}
-                    <div>
-                        <h3 className="px-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Persona</h3>
-                        <ul className="space-y-1">
-                            <li>
-                                <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
-                                    <i className="fa-solid fa-microphone-lines w-5 text-slate-400"></i>
-                                    Voice & Tone
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors">
-                                    <i className="fa-solid fa-hand-sparkles w-5 text-slate-400"></i>
-                                    Greetings
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <div className="p-4 border-t border-gray-100 bg-gray-50/50">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold text-slate-500">Setup Progress</span>
-                        <span className="text-xs font-bold text-brand-600">85%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-                        <div className="bg-brand-500 h-1.5 rounded-full" style={{ width: '85%' }}></div>
-                    </div>
+                            <div className="mt-8">
+                                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 px-2">System</div>
+                                <nav className="space-y-1">
+                                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-gray-100 hover:text-slate-900 transition-all">
+                                        <i className="fa-solid fa-robot w-5 text-center text-slate-400"></i>
+                                        Personality
+                                    </button>
+                                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-gray-100 hover:text-slate-900 transition-all">
+                                        <i className="fa-solid fa-plug w-5 text-center text-slate-400"></i>
+                                        Integrations
+                                    </button>
+                                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-gray-100 hover:text-slate-900 transition-all">
+                                        <i className="fa-solid fa-file-invoice-dollar w-5 text-center text-slate-400"></i>
+                                        Billing
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </ScrollArea>
                 </div>
             </aside>
-        </>
+        </div>
     );
 }
