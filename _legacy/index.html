@@ -1,157 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Train Sophiie - Redesign Prototype</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            900: '#1e3a8a',
-                        },
-                        slate: {
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617', // Deeper navy for sidebar
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.3s ease-out',
-                        'pop-in': 'popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(5px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        popIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.95)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-
-        .wizard-step {
-            display: none;
-        }
-
-        .wizard-step.active {
-            display: block;
-        }
-
-        .chat-bubble {
-            max-width: 80%;
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .user-bubble {
-            background-color: #eff6ff;
-            color: #1e3a8a;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            margin-left: auto;
-        }
-
-        .bot-bubble {
-            background-color: #f1f5f9;
-            color: #334155;
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-
-        .system-bubble {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: center;
-            margin: 10px 0;
-            font-style: italic;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        /* Pricing Radio Styles */
-        .pricing-radio:checked+div {
-            border-color: #3b82f6;
-            color: #2563eb;
-            background-color: #eff6ff;
-            font-weight: 600;
-        }
-
-        .pricing-dot {
-            display: none;
-        }
-
-        .pricing-radio:checked+div .pricing-dot {
-            display: block;
-        }
-
-        /* View Switching Logic */
-        .view-section {
-            display: none;
-        }
-
-        .view-section.active {
-            display: flex;
-        }
-
-        .nav-item.active {
-            color: #60a5fa;
-            /* brand-400 */
-        }
-
-        /* Nav Item hover/active logic for the dark sidebar */
-        .nav-icon-btn {
-            position: relative;
-        }
-
-        .nav-icon-btn.active::after {
-            content: '';
-            position: absolute;
-            left: -12px;
-            /* Pull to edge */
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 24px;
-            background-color: #60a5fa;
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="assets/js/config.js"></script>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body class="bg-gray-100 h-screen flex overflow-hidden text-slate-800">
@@ -348,7 +198,7 @@
                     <!-- Service Card 1 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div class="p-2 bg-green-50 text-green-600 rounded-lg">
                                 <i class="fa-solid fa-faucet text-xl"></i>
@@ -369,7 +219,7 @@
                     <!-- Service Card 2 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
                                 <i class="fa-solid fa-fire-burner text-xl"></i>
@@ -423,7 +273,7 @@
                     <!-- Staff Card 1 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div
                                 class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-sm">
@@ -444,7 +294,7 @@
                     <!-- Staff Card 2 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div
                                 class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center font-bold text-sm">
@@ -555,7 +405,8 @@
                     </div>
                     <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
                         <p class="text-sm text-slate-500 mb-6">Define strict limits for the AI. These are
-                            <strong>negative constraints</strong> that apply to every call.</p>
+                            <strong>negative constraints</strong> that apply to every call.
+                        </p>
 
                         <div class="space-y-4">
                             <!-- Guardrail Item 1 -->
@@ -634,7 +485,7 @@
                     <!-- Transfer Card 1 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div class="p-2 bg-orange-50 text-orange-600 rounded-lg">
                                 <i class="fa-solid fa-people-arrows text-xl"></i>
@@ -652,7 +503,7 @@
                     <!-- Transfer Card 2 -->
                     <div
                         class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all group cursor-pointer relative overflow-hidden hover:-translate-y-1">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+
                         <div class="flex justify-between items-start mb-4">
                             <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
                                 <i class="fa-solid fa-user-check text-xl"></i>
@@ -847,7 +698,8 @@
                                             class="flex-1 bg-gray-50 px-3 py-2.5 rounded-lg border border-gray-200 text-sm text-slate-700 flex items-center justify-between group">
                                             <span>Is the water currently turned off?</span><button
                                                 class="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><i
-                                                    class="fa-solid fa-trash"></i></button></div>
+                                                    class="fa-solid fa-trash"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="flex gap-2"><input type="text" id="newQuestionInput"
@@ -868,9 +720,10 @@
                                         class="h-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 hover:border-gray-300 transition-all flex flex-col items-center text-center">
                                         <div
                                             class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                            <i class="fa-solid fa-phone-flip"></i></div><span
-                                            class="font-semibold text-sm text-slate-800">Transfer Call</span><span
-                                            class="text-xs text-slate-500 mt-1">Connect to a human</span>
+                                            <i class="fa-solid fa-phone-flip"></i>
+                                        </div><span class="font-semibold text-sm text-slate-800">Transfer
+                                            Call</span><span class="text-xs text-slate-500 mt-1">Connect to a
+                                            human</span>
                                     </div>
                                 </label><label class="cursor-pointer group"><input type="radio" name="outcome"
                                         value="book" class="peer hidden" onchange="updatePreview('service')">
@@ -878,8 +731,8 @@
                                         class="h-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 hover:border-gray-300 transition-all flex flex-col items-center text-center">
                                         <div
                                             class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                            <i class="fa-solid fa-calendar-check"></i></div><span
-                                            class="font-semibold text-sm text-slate-800">Book Job</span><span
+                                            <i class="fa-solid fa-calendar-check"></i>
+                                        </div><span class="font-semibold text-sm text-slate-800">Book Job</span><span
                                             class="text-xs text-slate-500 mt-1">Schedule appointment</span>
                                     </div>
                                 </label><label class="cursor-pointer group"><input type="radio" name="outcome"
@@ -888,8 +741,8 @@
                                         class="h-full p-4 rounded-xl border-2 border-gray-200 peer-checked:border-brand-500 peer-checked:bg-brand-50 hover:border-gray-300 transition-all flex flex-col items-center text-center">
                                         <div
                                             class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                                            <i class="fa-solid fa-paper-plane"></i></div><span
-                                            class="font-semibold text-sm text-slate-800">Send Info</span><span
+                                            <i class="fa-solid fa-paper-plane"></i>
+                                        </div><span class="font-semibold text-sm text-slate-800">Send Info</span><span
                                             class="text-xs text-slate-500 mt-1">Email or SMS details</span>
                                     </div>
                                 </label></div>
@@ -917,7 +770,8 @@
                                             onclick="selectOption('Reception Desk (Default)')">
                                             <div
                                                 class="w-6 h-6 rounded bg-purple-100 text-purple-600 flex items-center justify-center text-xs">
-                                                <i class="fa-solid fa-users"></i></div>Reception Desk (Default)
+                                                <i class="fa-solid fa-users"></i>
+                                            </div>Reception Desk (Default)
                                         </div>
                                         <div
                                             class="px-3 py-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider mt-1">
@@ -1138,7 +992,8 @@
                             <div class="text-center py-8">
                                 <div
                                     class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
-                                    <i class="fa-solid fa-check"></i></div>
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
                                 <h3 class="text-lg font-bold text-slate-800 mb-2">Protocol Ready</h3>
                                 <p class="text-slate-500 text-sm max-w-xs mx-auto">This logic will now override general
                                     AI behavior when triggered.</p>
@@ -1298,7 +1153,8 @@
             <div class="text-center mb-5">
                 <div
                     class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i class="fa-solid fa-floppy-disk text-xl"></i></div>
+                    <i class="fa-solid fa-floppy-disk text-xl"></i>
+                </div>
                 <h3 class="text-lg font-bold text-slate-800">Save progress?</h3>
                 <p class="text-slate-500 text-sm mt-1">You have unsaved changes.</p>
             </div>
@@ -1315,461 +1171,10 @@
         </div>
     </div>
 
-    <script>
-        // State Management
-        let currentStep = 1;
-        const totalSteps = 3;
-        let hasUnsavedChanges = false;
-        let wizardMode = 'service'; // 'service', 'staff', 'protocol', 'transfer'
-        let isNestedStaffFlow = false;
-
-        // DOM Elements
-        const modal = document.getElementById('wizardModal');
-        const modalContent = document.getElementById('wizardContent');
-        const backBtn = document.getElementById('backBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const chatContainer = document.getElementById('chatContainer');
-        const priceInput = document.getElementById('priceInput');
-        const priceInputContainer = document.getElementById('priceInputContainer');
-
-        // Inputs
-        const nameInput = document.getElementById('serviceNameInput');
-        const descInput = document.getElementById('serviceDescInput');
-        const newQuestionInput = document.getElementById('newQuestionInput');
-        const questionsList = document.getElementById('questionsList');
-
-        modalContent.addEventListener('input', () => hasUnsavedChanges = true);
-        modalContent.addEventListener('change', () => hasUnsavedChanges = true);
-
-        // --- CUSTOM DROPDOWN LOGIC ---
-        function toggleDropdown() {
-            document.getElementById('customSelectMenu').classList.toggle('hidden');
-        }
-        function selectOption(value) {
-            document.getElementById('selectedValue').innerText = value;
-            toggleDropdown();
-        }
-        function filterOptions(input) {
-            const filter = input.value.toUpperCase();
-            const div = document.getElementById("dropdownOptions");
-            const options = div.getElementsByClassName("option-item");
-            for (let i = 0; i < options.length; i++) {
-                const txtValue = options[i].textContent || options[i].innerText;
-                options[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
-            }
-        }
-
-        // --- VIEW SWITCHING ---
-        let currentView = 'services';
-
-        function switchView(viewName) {
-            currentView = viewName;
-
-            // Update Views
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(`view-${viewName}`).classList.add('active');
-
-            // Update Sidebar Active
-            document.querySelectorAll('.nav-icon-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(`nav-${viewName}`).classList.add('active');
-
-            // Update Submenu Highlights (Reset all first)
-            document.getElementById('sub-services').className = "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors";
-            document.getElementById('sub-staff').className = "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors";
-            document.getElementById('sub-protocols').className = "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors";
-            // Check if element exists before accessing class (as it was newly added)
-            if (document.getElementById('sub-transfers')) {
-                document.getElementById('sub-transfers').className = "flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-gray-50 hover:text-slate-900 transition-colors";
-            }
-
-            const activeClass = "flex items-center gap-3 px-3 py-2.5 rounded-lg bg-brand-50 text-brand-700 font-medium";
-            if (viewName === 'services') document.getElementById('sub-services').className = activeClass;
-            if (viewName === 'staff') document.getElementById('sub-staff').className = activeClass;
-            if (viewName === 'protocols') document.getElementById('sub-protocols').className = activeClass;
-            if (viewName === 'transfers' && document.getElementById('sub-transfers')) document.getElementById('sub-transfers').className = activeClass;
-        }
-
-        // --- GLOBAL SETTINGS ---
-        function openGlobalSettings() {
-            const el = document.getElementById('globalSettingsModal');
-            el.classList.remove('hidden');
-            setTimeout(() => { el.classList.remove('opacity-0'); el.querySelector('div').classList.remove('scale-95'); }, 10);
-        }
-        function closeGlobalSettings() {
-            const el = document.getElementById('globalSettingsModal');
-            el.classList.add('opacity-0');
-            el.querySelector('div').classList.add('scale-95');
-            setTimeout(() => el.classList.add('hidden'), 300);
-        }
-
-        // --- WIZARD LOGIC ---
-        function openWizard(mode) {
-            wizardMode = mode || 'service';
-            isNestedStaffFlow = false;
-
-            configureWizardUI(wizardMode);
-
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
-            }, 10);
-            resetWizard();
-        }
-
-        function switchToStaffFlow() {
-            isNestedStaffFlow = true;
-            wizardMode = 'staff';
-            document.getElementById('customSelectMenu').classList.add('hidden');
-            configureWizardUI('staff');
-            document.getElementById('staffNameInput').value = '';
-            document.getElementById('staffRoleInput').value = '';
-
-            currentStep = 1;
-            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
-            document.getElementById('staff-step-1').classList.add('active');
-            updateStepperUI();
-        }
-
-        function returnToServiceFlow() {
-            wizardMode = 'service';
-            isNestedStaffFlow = false;
-            configureWizardUI('service');
-
-            currentStep = 3;
-            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
-            document.getElementById('service-step-3').classList.add('active');
-            updateStepperUI();
-            document.getElementById('selectedValue').innerText = "New Team Member";
-        }
-
-        function configureWizardUI(mode) {
-            // Hide all first
-            document.getElementById('serviceFormContainer').classList.add('hidden');
-            document.getElementById('staffFormContainer').classList.add('hidden');
-            document.getElementById('protocolFormContainer').classList.add('hidden');
-            document.getElementById('transferFormContainer').classList.add('hidden');
-            document.getElementById('nestedStaffAlert').classList.add('hidden');
-
-            if (mode === 'service') {
-                document.getElementById('serviceFormContainer').classList.remove('hidden');
-                document.getElementById('wizardTitle').innerText = 'Add New Service';
-                document.getElementById('step-label-1').innerText = 'Basics';
-                document.getElementById('step-label-2').innerText = 'Knowledge';
-                document.getElementById('step-label-3').innerText = 'Outcome';
-            } else if (mode === 'staff') {
-                document.getElementById('staffFormContainer').classList.remove('hidden');
-                document.getElementById('wizardTitle').innerText = 'Add Team Member';
-                document.getElementById('step-label-1').innerText = 'Profile';
-                document.getElementById('step-label-2').innerText = 'Responsibilities';
-                document.getElementById('step-label-3').innerText = 'Transfer Rules';
-                if (isNestedStaffFlow) document.getElementById('nestedStaffAlert').classList.remove('hidden');
-            } else if (mode === 'protocol') {
-                document.getElementById('protocolFormContainer').classList.remove('hidden');
-                document.getElementById('wizardTitle').innerText = 'Add New Protocol';
-                document.getElementById('step-label-1').innerText = 'Trigger';
-                document.getElementById('step-label-2').innerText = 'Action';
-                document.getElementById('step-label-3').innerText = 'Review';
-            } else if (mode === 'transfer') {
-                document.getElementById('transferFormContainer').classList.remove('hidden');
-                document.getElementById('wizardTitle').innerText = 'Add Transfer Rule';
-                document.getElementById('step-label-1').innerText = 'Strategy';
-                document.getElementById('step-label-2').innerText = 'Handoff';
-                document.getElementById('step-label-3').innerText = 'Routing';
-            }
-        }
-
-        function attemptClose() {
-            if (hasUnsavedChanges) toggleSaveModal(true);
-            else closeWizard();
-        }
-
-        function closeWizard() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) attemptClose();
-        });
-
-        function toggleSaveModal(show) {
-            const el = document.getElementById('saveConfirmModal');
-            show ? el.classList.remove('hidden') : el.classList.add('hidden');
-        }
-
-        function saveAndClose() {
-            toggleSaveModal(false);
-            if (isNestedStaffFlow) returnToServiceFlow();
-            else closeWizard();
-        }
-
-        function discardAndClose() {
-            toggleSaveModal(false);
-            if (isNestedStaffFlow) returnToServiceFlow();
-            else closeWizard();
-        }
-
-        function updatePriceInput() {
-            const mode = document.querySelector('input[name="priceMode"]:checked').value;
-            priceInput.disabled = false;
-            priceInputContainer.style.opacity = '1';
-            if (mode === 'fixed') priceInput.placeholder = 'Enter fixed price amount...';
-            else if (mode === 'hourly') priceInput.placeholder = 'Enter hourly rate...';
-            else if (mode === 'range') { priceInput.placeholder = 'Enter min - max...'; priceInput.type = "text"; }
-            else if (mode === 'na') { priceInput.placeholder = 'Price not applicable'; priceInput.disabled = true; priceInputContainer.style.opacity = '0.5'; priceInput.value = ''; }
-            if (mode !== 'range') priceInput.type = "number";
-        }
-
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                const currentStepId = `${wizardMode}-step-${currentStep}`;
-                const nextStepId = `${wizardMode}-step-${currentStep + 1}`;
-                document.getElementById(currentStepId).classList.remove('active');
-                currentStep++;
-                document.getElementById(nextStepId).classList.add('active');
-                updateStepperUI();
-            } else {
-                if (isNestedStaffFlow) returnToServiceFlow();
-                else saveAndClose();
-            }
-        }
-
-        function prevStep() {
-            if (currentStep > 1) {
-                const currentStepId = `${wizardMode}-step-${currentStep}`;
-                const prevStepId = `${wizardMode}-step-${currentStep - 1}`;
-                document.getElementById(currentStepId).classList.remove('active');
-                currentStep--;
-                document.getElementById(prevStepId).classList.add('active');
-                updateStepperUI();
-            } else {
-                if (isNestedStaffFlow) returnToServiceFlow();
-            }
-        }
-
-        function updateStepperUI() {
-            for (let i = 1; i <= totalSteps; i++) {
-                const dot = document.getElementById(`step-dot-${i}`);
-                const label = document.getElementById(`step-label-${i}`);
-                if (i <= currentStep) {
-                    dot.classList.remove('bg-gray-300');
-                    dot.classList.add('bg-brand-600');
-                    label.classList.remove('text-gray-400');
-                    label.classList.add('text-brand-600');
-                } else {
-                    dot.classList.add('bg-gray-300');
-                    dot.classList.remove('bg-brand-600');
-                    label.classList.add('text-gray-400');
-                    label.classList.remove('text-brand-600');
-                }
-            }
-            document.getElementById('backBtn').disabled = (currentStep === 1 && !isNestedStaffFlow);
-
-            if (currentStep === totalSteps) {
-                document.getElementById('nextBtn').innerText = isNestedStaffFlow ? 'Create & Return' : 'Save & Close';
-            } else {
-                document.getElementById('nextBtn').innerText = 'Next Step';
-            }
-            updatePreview(wizardMode);
-        }
-
-        function resetWizard() {
-            currentStep = 1;
-            hasUnsavedChanges = false;
-            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
-            document.getElementById(`${wizardMode}-step-1`).classList.add('active');
-            updateStepperUI();
-
-            nameInput.value = '';
-            descInput.value = '';
-            document.querySelector('input[value="fixed"]').checked = true;
-            updatePriceInput();
-            document.getElementById('staffNameInput').value = '';
-            document.getElementById('staffRoleInput').value = '';
-            document.getElementById('staffRespInput').value = '';
-            document.getElementById('transferNameInput').value = '';
-
-            resetPreview();
-        }
-
-        // --- Live Simulator Logic ---
-        let hasShownUserIntent = false;
-        let hasShownBotAck = false;
-
-        function updatePreview(mode) {
-            if (mode === 'service') updateServicePreview();
-            else if (mode === 'staff') updateStaffPreview();
-            else if (mode === 'protocol') updateProtocolPreview();
-            else if (mode === 'transfer') updateTransferPreview();
-        }
-
-        function updateServicePreview() {
-            const serviceName = nameInput.value;
-            const desc = descInput.value;
-            const outcome = document.querySelector('input[name="outcome"]:checked').value;
-
-            document.getElementById('transferConfig').style.display = outcome === 'transfer' ? 'block' : 'none';
-            document.getElementById('bookConfig').style.display = outcome === 'book' ? 'block' : 'none';
-            document.getElementById('infoConfig').style.display = outcome === 'info' ? 'block' : 'none';
-
-            if (serviceName.length > 3 && !hasShownUserIntent) {
-                addBubble('user', `I'm looking for help with <b>${serviceName}</b>.`);
-                hasShownUserIntent = true;
-                setTimeout(() => { addSystemMsg('Sophiie recognized intent: ' + serviceName); }, 600);
-            }
-
-            if (desc.length > 5 && !hasShownBotAck && hasShownUserIntent) {
-                setTimeout(() => {
-                    addBubble('bot', `I can definitely help with that. We handle ${serviceName} specifically by ${desc.substring(0, 20)}...`);
-                    hasShownBotAck = true;
-                }, 800);
-            }
-
-            if (currentStep === 3) {
-                const existingOutcome = document.getElementById('outcomeBubble');
-                if (existingOutcome) existingOutcome.remove();
-
-                let icon = ''; let text = '';
-                if (outcome === 'transfer') { icon = 'fa-phone-arrow-up-right'; text = 'Transferring call to team...'; }
-                else if (outcome === 'book') { icon = 'fa-calendar-days'; text = 'Checking calendar availability...'; }
-                else if (outcome === 'info') {
-                    const sendSMS = document.getElementById('checkSMS').checked;
-                    const sendEmail = document.getElementById('checkEmail').checked;
-                    if (sendSMS && sendEmail) { icon = 'fa-envelopes-bulk'; text = 'Sending details via SMS & Email...'; }
-                    else if (sendSMS) { icon = 'fa-comment-sms'; text = 'Sending details via SMS...'; }
-                    else if (sendEmail) { icon = 'fa-envelope'; text = 'Sending details via Email...'; }
-                    else { icon = 'fa-circle-question'; text = 'Select a delivery method...'; }
-                }
-                const bubbleHtml = `<div id="outcomeBubble" class="system-bubble text-brand-600 bg-brand-50 py-2 px-3 rounded-lg border border-brand-100 animate-fade-in mt-4"><i class="fa-solid ${icon}"></i> Action: ${text}</div>`;
-                chatContainer.insertAdjacentHTML('beforeend', bubbleHtml);
-                scrollToBottom();
-            }
-        }
-
-        function updateStaffPreview() {
-            const name = document.getElementById('staffNameInput').value || 'Sarah';
-            const role = document.getElementById('staffRoleInput').value || 'Manager';
-            const resp = document.getElementById('staffRespInput').value || 'billing';
-
-            if (document.getElementById('sim-staff-1')) return;
-
-            if (currentStep === 2 && resp.length > 5) {
-                addBubble('user', `I have a tricky question about my ${resp.split(' ')[0]}.`);
-                setTimeout(() => {
-                    addSystemMsg(`Intent recognized: Matches ${name}'s responsibilities.`);
-                    setTimeout(() => {
-                        addBubble('bot', `I can help with that. Let me get you to ${name}, our ${role}, who handles that best.`);
-                    }, 600);
-                }, 500);
-                const flag = document.createElement('div'); flag.id = 'sim-staff-1'; chatContainer.appendChild(flag);
-            }
-
-            if (currentStep === 3) {
-                const existingOutcome = document.getElementById('outcomeBubbleStaff');
-                if (existingOutcome) existingOutcome.remove();
-                const bubbleHtml = `<div id="outcomeBubbleStaff" class="system-bubble text-brand-600 bg-brand-50 py-2 px-3 rounded-lg border border-brand-100 animate-fade-in mt-4"><i class="fa-solid fa-phone-arrow-up-right"></i> Rule: Transfer to ${name}</div>`;
-                chatContainer.insertAdjacentHTML('beforeend', bubbleHtml);
-                scrollToBottom();
-            }
-        }
-
-        function updateProtocolPreview() {
-            if (currentStep === 1) {
-                // Just text change in Step 1, wait for Step 2 interaction
-            } else if (currentStep === 2) {
-                const action = document.getElementById('protocolActionSelect').value;
-                const existingOutcome = document.getElementById('outcomeBubbleProtocol');
-                if (existingOutcome) existingOutcome.remove();
-
-                let text = "Action pending...";
-                if (action === 'script') text = "Reading Script: We do not offer refunds...";
-                if (action === 'transfer') text = "Action: Transfer to selected team";
-                if (action === 'refuse') text = "Action: Politely decline request";
-                if (action === 'collect') text = "Action: Collect details and save note";
-
-                const bubbleHtml = `<div id="outcomeBubbleProtocol" class="system-bubble text-indigo-600 bg-indigo-50 py-2 px-3 rounded-lg border border-indigo-100 animate-fade-in mt-4"><i class="fa-solid fa-bolt"></i> Protocol: ${text}</div>`;
-                chatContainer.insertAdjacentHTML('beforeend', bubbleHtml);
-                scrollToBottom();
-            }
-        }
-
-        function updateTransferPreview() {
-            if (currentStep === 2) {
-                const summary = document.getElementById('transferSummaryInput').value;
-                // Show AI whispering to agent logic
-                const existingOutcome = document.getElementById('outcomeBubbleTransfer');
-                if (existingOutcome) existingOutcome.remove();
-
-                // Parse mock variables for display
-                let displaySummary = summary.replace('{Caller Name}', 'John').replace('{Reason}', 'a leaky tap').replace('{Key Details}', 'it is flooding the kitchen');
-
-                const bubbleHtml = `<div id="outcomeBubbleTransfer" class="system-bubble text-orange-600 bg-orange-50 py-2 px-3 rounded-lg border border-orange-100 animate-fade-in mt-4 text-left"><div class="flex items-center gap-2 mb-1"><i class="fa-solid fa-user-headset"></i> <span class="font-bold text-xs uppercase">AI to Agent Whisper</span></div>"${displaySummary}"</div>`;
-                chatContainer.insertAdjacentHTML('beforeend', bubbleHtml);
-                scrollToBottom();
-            }
-        }
-
-        // Add Question Logic
-        function addQuestion() {
-            const txt = newQuestionInput.value;
-            if (!txt) return;
-            hasUnsavedChanges = true;
-            const div = document.createElement('div');
-            div.className = 'flex gap-2 animate-fade-in';
-            div.innerHTML = `<div class="flex-1 bg-gray-50 px-3 py-2.5 rounded-lg border border-gray-200 text-sm text-slate-700 flex items-center justify-between group"><span>${txt}</span><button onclick="this.parentElement.parentElement.remove(); hasUnsavedChanges=true;" class="text-gray-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button></div>`;
-            questionsList.appendChild(div);
-            newQuestionInput.value = '';
-        }
-
-        function addBubble(type, html) {
-            let bubbleHtml = '';
-            if (type === 'user') bubbleHtml = `<div class="user-bubble chat-bubble">${html}</div>`;
-            else bubbleHtml = `<div class="flex gap-3 animate-fade-in"><div class="w-8 h-8 rounded-full bg-brand-600 flex-shrink-0 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-headset"></i></div><div class="bot-bubble chat-bubble">${html}</div></div>`;
-            chatContainer.insertAdjacentHTML('beforeend', bubbleHtml);
-            scrollToBottom();
-        }
-
-        function addSystemMsg(text) {
-            const html = `<div class="system-bubble"><i class="fa-solid fa-bolt text-yellow-500"></i> ${text}</div>`;
-            chatContainer.insertAdjacentHTML('beforeend', html);
-            scrollToBottom();
-        }
-
-        function scrollToBottom() {
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        function resetPreview() {
-            chatContainer.innerHTML = `<div class="system-bubble"><i class="fa-solid fa-play"></i> Simulation Started</div><div class="flex gap-3"><div class="w-8 h-8 rounded-full bg-brand-600 flex-shrink-0 flex items-center justify-center text-white text-xs"><i class="fa-solid fa-headset"></i></div><div class="bot-bubble chat-bubble">Hi, thanks for calling ABC Plumbing. How can I help you today?</div></div>`;
-            hasShownUserIntent = false;
-            hasShownBotAck = false;
-        }
-
-        // Protocol Trigger Logic
-        function updateProtocolPlaceholder() {
-            const type = document.querySelector('input[name="protocolTrigger"]:checked').value;
-            const input = document.getElementById('protocolTriggerInput');
-            if (type === 'keyword') {
-                input.placeholder = "Enter specific keywords (comma separated)...";
-            } else {
-                input.placeholder = "Describe the user's goal (e.g., 'The user is angry about a bill')...";
-            }
-        }
-
-        newQuestionInput.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                addQuestion();
-            }
-        });
-
-    </script>
+    <script src="assets/js/core.js"></script>
+    <script src="assets/js/simulator.js"></script>
+    <script src="assets/js/wizard.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>
